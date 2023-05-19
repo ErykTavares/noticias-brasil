@@ -1,5 +1,5 @@
 import DefaultLayout from '@/layout/defaultLayout';
-import * as S from '../style/pages/home';
+import * as S from '@/style/pages/home';
 
 const Home = (): JSX.Element => (
 	<DefaultLayout>
