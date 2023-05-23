@@ -26,6 +26,12 @@ export const GlobalStyle = createGlobalStyle`
 					flex-direction: column;
 					align-items: start;
 					justify-content: start;
+					background: linear-gradient(
+						123deg,
+						rgb(205 205 205 / 35%) -0.3%,
+						rgb(183 181 181 / 10%) 99.01%
+					);
+					backdrop-filter: blur(12.5px);
 				}
 
 				section {
