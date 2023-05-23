@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 					box-sizing: border-box;
 					list-style-type: none;
 					text-decoration: none;
+					scroll-behavior: smooth;
 				}
 
 				a,
@@ -21,10 +22,9 @@ export const GlobalStyle = createGlobalStyle`
 
 				main {
 					width: 100%;
-					min-height: 100vh;
 					display: flex;
 					flex-direction: column;
-					align-items: start;
+					align-items: center;
 					justify-content: start;
 					background: linear-gradient(
 						123deg,
@@ -35,11 +35,9 @@ export const GlobalStyle = createGlobalStyle`
 				}
 
 				section {
+					max-width: 1366px;
 					width: 100%;
-					height: calc(100vh - 100px - 60px);
-					overflow-y: auto;
-					overflow-x: hidden;
-					scroll-behavior: smooth;
+					overflow: hidden auto;
 				}
 
 				img {

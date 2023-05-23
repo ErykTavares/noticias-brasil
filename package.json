@@ -13,11 +13,14 @@
     "format": "npm run prettier:fix"
   },
   "dependencies": {
+    "@types/dateformat": "^5.0.0",
     "@types/node": "20.2.1",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
+    "dateformat": "^5.0.3",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "13.4.3",
     "next": "13.4.3",
