@@ -10,23 +10,28 @@ interface INewsCard {
 }
 
 const NewsCard = ({ news }: INewsCard): JSX.Element => {
-	const [day, month, year] = news?.date?.split('/');
-	const [hour, min, sec] = news?.time?.split(':');
-	const date = formatDistance(new Date(+year, +month - 1, +day, +hour, +min, +sec), new Date(), {
-		includeSeconds: true,
-		addSuffix: true,
-		locale: ptBr
-	});
+	const { date, time, thumb, title, link } = news;
+	const [day, month, year] = date?.split('/');
+	const [hour, min, sec] = time?.split(':');
+	const formattedDate = formatDistance(
+		new Date(+year, +month - 1, +day, +hour, +min, +sec),
+		new Date(),
+		{
+			includeSeconds: true,
+			addSuffix: true,
+			locale: ptBr
+		}
+	);
 
 	return (
 		<S.Wrapper>
-			<a href={news.link} target='_blank' rel='noreferrer'>
+			<a href={link} target='_blank' rel='noreferrer'>
 				<S.ImgContainer>
-					<Image src={news.thumb} alt='news thumb' width='400' height='225' priority />
+					<Image src={thumb} alt='news thumb' width='400' height='225' priority />
 				</S.ImgContainer>
 				<S.ContentWrapper>
-					<h4>{news.title}</h4>
-					<p>{date}</p>
+					<h4>{title}</h4>
+					<p>{formattedDate}</p>
 				</S.ContentWrapper>
 			</a>
 		</S.Wrapper>

@@ -25,12 +25,7 @@ export const GlobalStyle = createGlobalStyle`
 					cursor: pointer;
 				}
 
-				main {
-					width: 100%;
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					justify-content: start;
+				body {
 					background: linear-gradient(
 						123deg,
 						rgb(205 205 205 / 35%) -0.3%,
@@ -39,10 +34,18 @@ export const GlobalStyle = createGlobalStyle`
 					backdrop-filter: blur(12.5px);
 				}
 
+				main {
+					width: 100%;
+					min-height: calc(100vh - 100px - 60px);
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: start;
+				}
+
 				section {
 					max-width: 1366px;
 					width: 100%;
-					min-height: calc(100vh - 100px - 60px);
 					overflow: hidden auto;
 				}
 

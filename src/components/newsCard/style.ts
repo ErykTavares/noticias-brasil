@@ -12,6 +12,19 @@ export const Wrapper = styled.div`
 		transform: scale(1.1);
 		z-index: 1;
 	}
+
+	@media screen and (max-width: 924px) {
+		max-width: 700px;
+		width: 95%;
+		height: auto;
+	}
+
+	/* @media screen and (max-width: 800px) {
+		&:hover {
+			transform: scale(1);
+			z-index: 1;
+		}
+	} */
 `;
 
 export const ImgContainer = styled.div`
@@ -33,6 +46,7 @@ export const ContentWrapper = styled.div`
 		justify-content: start;
 
 		h4 {
+			height: 72px;
 			display: -webkit-box;
 			font-size: 1.5rem;
 			font-weight: bold;

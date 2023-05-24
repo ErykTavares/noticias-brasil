@@ -15,6 +15,7 @@ declare module 'styled-components' {
 			darkBlue: string;
 			lightGray: string;
 			green: string;
+			lightWhite: string;
 		};
 		boxShadow: string;
 	}

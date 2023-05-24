@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const FiltersContainer = styled.div`
+export const FiltersContainer = styled.form`
 	width: max-content;
 	height: 100%;
 	display: flex;

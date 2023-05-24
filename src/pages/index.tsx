@@ -65,8 +65,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 		? dateFormat(addTimeInDate(query?.date as string), 'dd/mm/yyyy')
 		: '';
 
-	console.log(queryDate);
-
 	const data = await axios(`https://apinoticias.tedk.com.br/api/`, {
 		params: {
 			q: query?.state || 'bahia',

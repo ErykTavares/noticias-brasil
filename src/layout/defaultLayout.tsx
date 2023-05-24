@@ -1,10 +1,7 @@
 import React from 'react';
-import { Roboto } from 'next/font/google';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import Head from 'next/head';
-
-const roboto = Roboto({ weight: '400', subsets: ['latin'] });
 
 interface IDefaultProps {
 	children: JSX.Element;
@@ -12,14 +9,19 @@ interface IDefaultProps {
 }
 
 const DefaultLayout = ({ children, title }: IDefaultProps): JSX.Element => (
-	<main className={roboto.className}>
+	<>
 		<Head>
 			<title>{title}</title>
 			<meta property='og:title' content={title} key='title' />
+			<meta
+				name='description'
+				content='Gostaria de compartilhar com você uma empolgante oportunidade de posição em potencial. Fui desafiado a criar um site de notícias com integração de API, bem como elaborar uma lista e página de notícias. Estou entusiasmado em demonstrar minha criatividade e habilidades técnicas, e criar uma solução de qualidade que atenda às expectativas do negócio.'
+			/>
 		</Head>
+
 		<Header />
-		{children}
+		<main>{children}</main>
 		<Footer />
-	</main>
+	</>
 );
 export default DefaultLayout;

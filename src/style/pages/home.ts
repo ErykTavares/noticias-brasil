@@ -24,8 +24,10 @@ export const Wrapper = styled.div`
 	place-items: start;
 	gap: 1.3rem;
 
-	@media screen and (max-width: 465px) {
+	@media screen and (max-width: 924px) {
 		grid-template-columns: 1fr;
+		place-items: center;
+		margin-top: 0.5rem;
 	}
 `;
 

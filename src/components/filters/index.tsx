@@ -37,17 +37,22 @@ const Filters = ({ watch, control, reset }: IFiltersProps): JSX.Element => {
 	const router = useRouter();
 	const { date, state } = watch();
 
-	const handleFilter = useCallback(() => {
-		router.push(`${router.pathname}?state=${state.value.toLowerCase()}&date=${date}`);
-	}, [date, state]);
+	const handleFilter = useCallback(
+		(e: React.FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
+
+			router.push(`${router.pathname}?state=${state.value.toLowerCase()}&date=${date}`);
+		},
+		[date, state]
+	);
 
 	const handleCleanFilter = () => {
-		reset();
+		reset({ date: '', state: {} });
 		router.push(router.pathname);
 	};
 
 	return (
-		<S.FiltersContainer>
+		<S.FiltersContainer onSubmit={handleFilter}>
 			<S.InputWrapper>
 				<Controller
 					render={({
@@ -90,15 +95,14 @@ const Filters = ({ watch, control, reset }: IFiltersProps): JSX.Element => {
 			</S.InputWrapper>
 			<S.buttonsWrapper>
 				<button
-					type='button'
+					type='submit'
 					className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-2 rounded'
-					onClick={handleFilter}
 					disabled={!date || !state.label}
 				>
 					Filtrar
 				</button>
 				<button
-					type='button'
+					type='reset'
 					className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
 					onClick={handleCleanFilter}
 					disabled={!date || !state.label}
