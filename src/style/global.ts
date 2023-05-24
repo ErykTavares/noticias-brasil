@@ -25,6 +25,10 @@ export const GlobalStyle = createGlobalStyle`
 					cursor: pointer;
 				}
 
+				<button:disabled {
+					opacity: 0.5;
+				}
+
 				body {
 					background: linear-gradient(
 						123deg,
