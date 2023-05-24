@@ -1,52 +1,22 @@
-import Input from '@/components/form/input';
-import Select from '@/components/form/select/select';
+import Filters from '@/components/filters';
 import NewsCard from '@/components/newsCard';
 import DefaultLayout from '@/layout/defaultLayout';
 import * as S from '@/style/pages/home';
 import addTimeInDate from '@/util/addTimeInDate';
+import states from '@/util/states';
 import axios from 'axios';
 import dateFormat from 'dateformat';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 interface IHomeProps {
 	data: DNews.INews[];
 }
 
-const states = [
-	{ value: 'AC', label: 'Acre' },
-	{ value: 'AL', label: 'Alagoas' },
-	{ value: 'AP', label: 'Amapá' },
-	{ value: 'AM', label: 'Amazonas' },
-	{ value: 'BA', label: 'Bahia' },
-	{ value: 'CE', label: 'Ceará' },
-	{ value: 'DF', label: 'Distrito Federal' },
-	{ value: 'ES', label: 'Espirito Santo' },
-	{ value: 'GO', label: 'Goiás' },
-	{ value: 'MA', label: 'Maranhão' },
-	{ value: 'MS', label: 'Mato Grosso do Sul' },
-	{ value: 'MT', label: 'Mato Grosso' },
-	{ value: 'MG', label: 'Minas Gerais' },
-	{ value: 'PA', label: 'Pará' },
-	{ value: 'PB', label: 'Paraíba' },
-	{ value: 'PR', label: 'Paraná' },
-	{ value: 'PE', label: 'Pernambuco' },
-	{ value: 'PI', label: 'Piauí' },
-	{ value: 'RJ', label: 'Rio de Janeiro' },
-	{ value: 'RN', label: 'Rio Grande do Norte' },
-	{ value: 'RS', label: 'Rio Grande do Sul' },
-	{ value: 'RO', label: 'Rondônia' },
-	{ value: 'RR', label: 'Roraima' },
-	{ value: 'SC', label: 'Santa Catarina' },
-	{ value: 'SP', label: 'São Paulo' },
-	{ value: 'SE', label: 'Sergipe' },
-	{ value: 'TO', label: 'Tocantins' }
-];
-
 const Home = ({ data }: IHomeProps): JSX.Element => {
 	const router = useRouter();
+
 	const { control, watch, reset } = useForm({
 		defaultValues: {
 			state: states.find((fin) => {
@@ -59,91 +29,24 @@ const Home = ({ data }: IHomeProps): JSX.Element => {
 				: ''
 		}
 	});
-	const { date, state } = watch();
-
-	const handleFilter = useCallback(() => {
-		router.push(`${router.pathname}?state=${state.value.toLowerCase()}&date=${date}`);
-	}, [date, state]);
-
-	const handleCleanFilter = () => {
-		reset();
-		router.push(router.pathname);
-	};
 
 	return (
-		<DefaultLayout>
+		<DefaultLayout title='Notícias Brasil'>
 			<S.Container>
 				<S.Header>
 					<h2>Últimas Notícias</h2>
-					<S.FiltersContainer>
-						<S.InputWrapper>
-							<Controller
-								render={({
-									field: { onChange, ref, onBlur, value, name: fieldName },
-									fieldState: { error }
-								}) => (
-									<Select
-										className='mr-2'
-										options={states}
-										name={fieldName}
-										optionLabel='-- Selecione o Estado --'
-										onChange={onChange}
-										onBlur={onBlur}
-										value={value}
-										ref={ref}
-										errors={error}
-									/>
-								)}
-								control={control}
-								name='state'
-							/>
-						</S.InputWrapper>
-						<S.InputWrapper>
-							<Controller
-								render={({ field: { name, onChange, value, ref }, fieldState: { error } }) => (
-									<Input
-										className='mr-2'
-										type='date'
-										placeholder='00/00/000'
-										errors={error}
-										name={name}
-										onChange={onChange}
-										value={value}
-										ref={ref}
-									/>
-								)}
-								name='date'
-								control={control}
-							/>
-						</S.InputWrapper>
-						<S.buttonsWrapper>
-							<button
-								type='button'
-								className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-2 rounded'
-								onClick={handleFilter}
-								disabled={!date || !state.label}
-							>
-								Filtrar
-							</button>
-							<button
-								type='button'
-								className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
-								onClick={handleCleanFilter}
-								disabled={!date || !state.label}
-							>
-								Limpar Filtros
-							</button>
-						</S.buttonsWrapper>
-					</S.FiltersContainer>
+					<Filters control={control} watch={watch} reset={reset} />
 				</S.Header>
 
-				<S.Wrapper>
-					{data?.length ? (
-						data?.map((item) => <NewsCard key={item.id + item.datetime} news={item} />)
-					) : (
-						<h3>Nenhum resultado encontrado.</h3>
-					)}
-				</S.Wrapper>
+				{data?.length ? (
+					<S.Wrapper>
+						{data?.map((item) => (
+							<NewsCard key={item.id + item.datetime} news={item} />
+						))}
+					</S.Wrapper>
+				) : (
+					<h3>Nenhum resultado encontrado.</h3>
+				)}
 			</S.Container>
 		</DefaultLayout>
 	);

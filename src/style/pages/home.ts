@@ -10,6 +10,11 @@ export const Container = styled.section`
 	@media (max-width: 768px) {
 		padding: 1.2rem 1rem;
 	}
+
+	h3 {
+		font-size: 1.3rem;
+		place-self: center;
+	}
 `;
 
 export const Wrapper = styled.div`
@@ -21,11 +26,6 @@ export const Wrapper = styled.div`
 
 	@media screen and (max-width: 465px) {
 		grid-template-columns: 1fr;
-	}
-
-	h3 {
-		font-size: 1.3rem;
-		place-self: center;
 	}
 `;
 
@@ -49,45 +49,5 @@ export const Header = styled.header`
 		flex-direction: column;
 		align-items: start;
 		justify-content: start;
-	}
-`;
-
-export const FiltersContainer = styled.div`
-	width: max-content;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: end;
-	padding-right: 0.2rem;
-
-	@media screen and (max-width: 1440px) {
-		justify-content: start;
-	}
-
-	@media screen and (max-width: 882px) {
-		width: 100%;
-		flex-wrap: wrap;
-	}
-`;
-
-export const buttonsWrapper = styled.div`
-	width: max-content;
-	display: flex;
-	align-items: center;
-	justify-content: start;
-
-	@media screen and (max-width: 882px) {
-		width: 100%;
-	}
-`;
-
-export const InputWrapper = styled.div`
-	width: 300px;
-	height: 100%;
-	display: flex;
-	align-items: center;
-
-	@media screen and (max-width: 882px) {
-		margin-bottom: 0.5rem;
 	}
 `;
