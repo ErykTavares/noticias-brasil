@@ -44,5 +44,11 @@ export const GlobalStyle = createGlobalStyle`
 					max-width: 100%;
 					height: auto;
 				}
+
+				label {
+					font-size: 1.2rem;
+					font-weight: 500;
+					margin-bottom: 0.5rem;
+				}
 			`}
 `;
