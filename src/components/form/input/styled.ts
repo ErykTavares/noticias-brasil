@@ -8,7 +8,6 @@ export const InputWrapperStyle = styled.div`
 	flex-wrap: wrap;
 	align-items: start;
 	justify-content: start;
-	padding: 0 0.5rem;
 	margin-left: 0 !important;
 
 	input {
@@ -18,6 +17,7 @@ export const InputWrapperStyle = styled.div`
 		border: 1px solid hsl(0, 0%, 80%);
 		border-radius: 0.25rem;
 		outline: none;
+		transition: all 0.2s;
 
 		&:hover,
 		&:focus {

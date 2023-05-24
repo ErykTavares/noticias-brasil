@@ -1,12 +1,16 @@
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
-	width: 400px;
+	max-width: 400px;
+	width: 100%;
 	height: 330px;
 	margin-bottom: 1rem;
+	cursor: pointer;
+	transition: 0.3s;
 
-	@media screen and (max-width: 465px) {
-		width: 100%;
+	&:hover {
+		transform: scale(1.1);
+		z-index: 1;
 	}
 `;
 

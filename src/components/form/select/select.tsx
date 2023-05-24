@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { RefCallBack } from 'react-hook-form';
 import * as S from './style';
 
-type Options = { value: number | string; label: string | number };
+export type Options = { value: number | string; label: string | number };
 
 interface ISelectProps {
 	onChange?: ChangeEventHandler<HTMLSelectElement> | undefined;
@@ -15,11 +15,13 @@ interface ISelectProps {
 	optionLabel: string;
 	options: Options[];
 	defaultValue?: string | number;
+	className?: string;
 }
 
 const ReactSelect = React.forwardRef(
 	(
 		{
+			className,
 			onChange,
 			errors,
 			onBlur,
@@ -31,41 +33,47 @@ const ReactSelect = React.forwardRef(
 			value
 		}: ISelectProps,
 		ref: React.LegacyRef<HTMLSelectElement>
-	) => (
-		<S.Wrapper>
-			{label ? <label htmlFor={name}>{label}</label> : null}
+	) => {
+		const inputId = `select-${name}`;
 
-			<div className='w-full'>
-				<Select
-					options={options}
-					placeholder={optionLabel}
-					onChange={onChange}
-					onBlur={onBlur}
-					value={value}
-					name={name}
-					id={name}
-					defaultValue={defaultValue}
-					ref={(fieldRef) => {
-						const refCallback = ref as RefCallBack;
+		return (
+			<S.Wrapper className={className || ''}>
+				{label ? <label htmlFor={inputId}>{label}</label> : null}
 
-						if (!fieldRef) {
-							return;
-						}
+				<div className='w-full'>
+					<Select
+						options={options}
+						placeholder={optionLabel}
+						onChange={onChange}
+						onBlur={onBlur}
+						value={value.label ? value : ''}
+						name={name}
+						id={name}
+						instanceId={name}
+						defaultValue={defaultValue}
+						ref={(fieldRef) => {
+							const refCallback = ref as RefCallBack;
 
-						refCallback({
-							focus: fieldRef?.onInputFocus
-						});
-					}}
-				/>
-			</div>
+							if (!fieldRef) {
+								return;
+							}
 
-			{(errors?.[name] || errors?.label || errors) && (
-				<span className='badge bg-danger px-2  my-2'>
-					{(errors[name] || errors?.label || errors).message}
-				</span>
-			)}
-		</S.Wrapper>
-	)
+							refCallback({
+								focus: fieldRef?.onInputFocus
+							});
+						}}
+						inputId={inputId}
+					/>
+				</div>
+
+				{(errors?.[name] || errors?.label || errors) && (
+					<span className='badge bg-danger px-2  my-2'>
+						{(errors[name] || errors?.label || errors).message}
+					</span>
+				)}
+			</S.Wrapper>
+		);
+	}
 );
 
 export default ReactSelect;

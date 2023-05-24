@@ -20,6 +20,11 @@ export const GlobalStyle = createGlobalStyle`
 					all: unset;
 				}
 
+				a,
+				button {
+					cursor: pointer;
+				}
+
 				main {
 					width: 100%;
 					display: flex;
@@ -37,6 +42,7 @@ export const GlobalStyle = createGlobalStyle`
 				section {
 					max-width: 1366px;
 					width: 100%;
+					min-height: calc(100vh - 100px - 60px);
 					overflow: hidden auto;
 				}
 

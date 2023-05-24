@@ -25,6 +25,7 @@ interface IInputProps {
 		| 'time'
 		| 'url'
 		| 'week';
+	className?: string;
 	label?: string;
 	placeholder?: string;
 	autoComplete?: string;
@@ -44,6 +45,7 @@ interface IInputProps {
 const Input = React.forwardRef(
 	(
 		{
+			className,
 			type,
 			label,
 			placeholder,
@@ -62,7 +64,7 @@ const Input = React.forwardRef(
 		}: IInputProps,
 		ref: React.LegacyRef<HTMLInputElement>
 	) => (
-		<InputWrapperStyle>
+		<InputWrapperStyle className={className || ''}>
 			{label ? <label htmlFor={name}>{label}</label> : null}
 			<div className='w-full'>
 				<input

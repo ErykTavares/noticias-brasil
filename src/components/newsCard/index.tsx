@@ -20,13 +20,15 @@ const NewsCard = ({ news }: INewsCard): JSX.Element => {
 
 	return (
 		<S.Wrapper>
-			<S.ImgContainer>
-				<Image src='https://i.imgur.com/IRwcnQY.png' alt='news thumb' width='100' height='100' />
-			</S.ImgContainer>
-			<S.ContentWrapper>
-				<h4>{news.title}</h4>
-				<p>{date}</p>
-			</S.ContentWrapper>
+			<a href={news.link} target='_blank' rel='noreferrer'>
+				<S.ImgContainer>
+					<Image src={news.thumb} alt='news thumb' width='400' height='225' priority />
+				</S.ImgContainer>
+				<S.ContentWrapper>
+					<h4>{news.title}</h4>
+					<p>{date}</p>
+				</S.ContentWrapper>
+			</a>
 		</S.Wrapper>
 	);
 };
