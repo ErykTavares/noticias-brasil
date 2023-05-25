@@ -8,6 +8,8 @@ Gostaria de compartilhar com você uma empolgante oportunidade de posição em p
 
 ### **Site do Projeto**
 
+**https://noticias-brasil.vercel.app/**
+
 ---
 
 ---
