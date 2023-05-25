@@ -1,46 +1,85 @@
 import Filters from '@/components/filters';
 import NewsCard from '@/components/newsCard';
 import DefaultLayout from '@/layout/defaultLayout';
+import api from '@/services/api';
 import * as S from '@/style/pages/home';
 import addTimeInDate from '@/util/addTimeInDate';
-import states from '@/util/states';
-import axios from 'axios';
 import dateFormat from 'dateformat';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface IHomeProps {
 	data: DNews.INews[];
 }
 
+const thumbLinks = [
+	'https://i.imgur.com/5yUAwYK.png',
+	'https://i.imgur.com/B1daKmc.png',
+	'https://i.imgur.com/wDvxJtg.png'
+];
+
 const Home = ({ data }: IHomeProps): JSX.Element => {
-	const router = useRouter();
+	const [news, setNews] = useState<DNews.INews[]>(data);
 
 	const { control, watch, reset } = useForm({
 		defaultValues: {
-			state: states.find((fin) => {
-				const queryState = router?.query?.state as string;
-				return queryState?.toLowerCase() === fin.value.toLowerCase() ? fin : undefined;
-			}) || { label: '', value: '' },
-
-			date: router?.query?.date
-				? dateFormat(addTimeInDate(router?.query?.date as string), 'isoDate')
-				: ''
+			state: { label: '', value: '' },
+			date: ''
 		}
 	});
+	const { date, state } = watch();
+
+	const handleFilterNews = useCallback(
+		async (e: React.FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
+
+			const queryDate = dateFormat(addTimeInDate(date), 'dd/mm/yyyy');
+
+			await api
+				.get(``, {
+					params: {
+						q: state?.value?.toLowerCase(),
+						date: queryDate
+					}
+				})
+				.then((response) => {
+					const res = response?.data?.list?.map((item: DNews.INews, index: any) => ({
+						...item,
+						id: index,
+						thumb: thumbLinks[Math.floor(Math.random() * thumbLinks.length)]
+					}));
+
+					setNews(res);
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+		},
+		[date, state]
+	);
+
+	const handleCleanFilter = () => {
+		reset({ date: '', state: {} });
+		setNews(data);
+	};
 
 	return (
 		<DefaultLayout title='Notícias Brasil'>
 			<S.Container>
 				<S.Header>
 					<h2>Últimas Notícias</h2>
-					<Filters control={control} watch={watch} reset={reset} />
+					<Filters
+						control={control}
+						watch={watch}
+						handleFilterNews={handleFilterNews}
+						handleCleanFilter={handleCleanFilter}
+					/>
 				</S.Header>
 
-				{data?.length ? (
+				{news?.length ? (
 					<S.Wrapper>
-						{data?.map((item) => (
+						{news?.map((item) => (
 							<NewsCard key={item.id + item.datetime} news={item} />
 						))}
 					</S.Wrapper>
@@ -54,21 +93,13 @@ const Home = ({ data }: IHomeProps): JSX.Element => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-	const thumbLinks = [
-		'https://i.imgur.com/5yUAwYK.png',
-		'https://i.imgur.com/B1daKmc.png',
-		'https://i.imgur.com/wDvxJtg.png'
-	];
+export const getServerSideProps: GetServerSideProps = async () => {
 	const currentDate = dateFormat(new Date(), 'dd/mm/yyyy');
-	const queryDate = query?.date
-		? dateFormat(addTimeInDate(query?.date as string), 'dd/mm/yyyy')
-		: '';
 
-	const data = await axios(`https://apinoticias.tedk.com.br/api/`, {
+	const data = await api(``, {
 		params: {
-			q: query?.state || 'bahia',
-			date: queryDate || currentDate
+			q: 'bahia',
+			date: currentDate
 		}
 	}).then((response) => {
 		const res = response?.data?.list?.map((item: DNews.INews, index: any) => ({

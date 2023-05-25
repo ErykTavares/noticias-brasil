@@ -1,58 +1,31 @@
-import React, { useCallback } from 'react';
-import { useRouter } from 'next/router';
-import { Control, Controller, UseFormReset, UseFormWatch } from 'react-hook-form';
+import React from 'react';
+import { Control, Controller, UseFormWatch } from 'react-hook-form';
 import states from '@/util/states';
 import * as S from './style';
 import Select from '../form/select/select';
 import Input from '../form/input';
 
+interface IValues {
+	state: { label: string; value: string };
+	date: string;
+}
 interface IFiltersProps {
-	watch: UseFormWatch<{
-		state: {
-			value: string;
-			label: string;
-		};
-		date: string;
-	}>;
-	control: Control<
-		{
-			state: {
-				value: string;
-				label: string;
-			};
-			date: string;
-		},
-		any
-	>;
-	reset: UseFormReset<{
-		state: {
-			value: string;
-			label: string;
-		};
-		date: string;
-	}>;
+	handleFilterNews: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+	handleCleanFilter: () => void;
+	watch: UseFormWatch<IValues>;
+	control: Control<IValues, any>;
 }
 
-const Filters = ({ watch, control, reset }: IFiltersProps): JSX.Element => {
-	const router = useRouter();
+const Filters = ({
+	handleFilterNews,
+	handleCleanFilter,
+	watch,
+	control
+}: IFiltersProps): JSX.Element => {
 	const { date, state } = watch();
 
-	const handleFilter = useCallback(
-		(e: React.FormEvent<HTMLFormElement>) => {
-			e.preventDefault();
-
-			router.push(`${router.pathname}?state=${state.value.toLowerCase()}&date=${date}`);
-		},
-		[date, state]
-	);
-
-	const handleCleanFilter = () => {
-		reset({ date: '', state: {} });
-		router.push(router.pathname);
-	};
-
 	return (
-		<S.FiltersContainer onSubmit={handleFilter}>
+		<S.FiltersContainer onSubmit={handleFilterNews}>
 			<S.InputWrapper>
 				<Controller
 					render={({
