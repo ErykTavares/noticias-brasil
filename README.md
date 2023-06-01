@@ -2,7 +2,7 @@
 
 ### **Descrição:**
 
--**Gostaria de compartilhar com você uma empolgante oportunidade de posição em potencial. Fui desafiado a criar um site de notícias com integração de API, bem como elaborar uma lista e página de notícias. Estou entusiasmado em demonstrar minha criatividade e habilidades técnicas, e criar uma solução de qualidade que atenda às expectativas do negócio.**
+- **Gostaria de compartilhar com você uma empolgante oportunidade de posição em potencial. Fui desafiado a criar um site de notícias com integração de API, bem como elaborar uma lista e página de notícias. Estou entusiasmado em demonstrar minha criatividade e habilidades técnicas, e criar uma solução de qualidade que atenda às expectativas do negócio.**
 
 ### **Site do Projeto**
 
@@ -14,7 +14,7 @@
 
 ### **Exemplo do Projeto**
 
-<img src=''>
+<img src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjE1NmFkOWQ5NzQyOWQ0ZTA2OTQzOWNiYjI4ZDBmZWEyZWJkMzk5MyZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/c3RXrpP180AjDOlYql/giphy.gif' alt="exemplo do projeto em gif">
 
 ### **Ferramentas Usadas**
 
