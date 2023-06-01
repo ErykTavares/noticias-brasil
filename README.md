@@ -8,9 +8,6 @@
 
 **https://noticias-brasil.vercel.app/**
 
----
-
----
 
 ### **Exemplo do Projeto**
 
